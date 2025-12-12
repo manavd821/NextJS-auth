@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "react-hot-toast";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,6 +29,24 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Toaster 
+            position="top-center"
+            toastOptions={{
+                duration : 3000,
+            }}
+            />
+        <nav
+        className="flex justify-between mx-10"
+        >
+          <div className="space-x-4">
+            <Link href={'/'}>Home</Link>
+            <Link href={'/profile'}>Profile</Link>
+          </div>
+          <div className="space-x-4">
+            <Link href={'/login'}>Login</Link>
+            <Link href={'/signup'}>Signup</Link>
+          </div>
+        </nav>
         {children}
       </body>
     </html>
