@@ -3,10 +3,13 @@ import Link from "next/link";
 import React from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import toast, {Toaster} from "react-hot-toast";
+import toast from "react-hot-toast";
+import { useSearchParams } from "next/navigation";
 
 export default function SignUp(){
-
+    const searchParams = useSearchParams();
+    const msg = searchParams.get("msg");
+    console.log(msg)
     const router = useRouter();
     const [user, setUser]  = React.useState({
         username: "",
@@ -51,7 +54,17 @@ export default function SignUp(){
         else {
             setButtonDisabled(true);
         }
-    }, [user])
+    }, [user]);
+
+    React.useEffect(() => {
+        if(msg === 'login-required') {
+            toast.error("Please login to continue");
+        }
+        else if(msg === 'already-logged-in'){
+            toast.success("You're already logged in");
+        }
+    },[msg]);
+    
     return (
         <div 
         className="flex flex-col space-y-10 items-center justify-center min-h-screen py-2">

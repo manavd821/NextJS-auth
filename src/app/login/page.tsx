@@ -1,12 +1,18 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import { useRouter } from "next/navigation";
+import { 
+    useRouter, 
+    useSearchParams,
+} from "next/navigation";
 import  axios from "axios";
 import toast from "react-hot-toast";
 
 export default function Login(){
     const router =useRouter();
+    const searchParams = useSearchParams();
+    const msg = searchParams.get("msg");
+    console.log(msg)
     const [user, setUser]  = React.useState({
         email: "",
         password: "",
@@ -48,6 +54,15 @@ export default function Login(){
             }
         }, [user]);
 
+    React.useEffect(() => {
+        if(msg === 'login-required') {
+            toast.error("Please login to continue");
+        }
+        else if(msg === 'already-logged-in'){
+            toast("You're already logged in");
+        }
+    },[msg]);
+    
     return (
         <div 
         className="flex flex-col space-y-10 items-center justify-center min-h-screen py-2">
