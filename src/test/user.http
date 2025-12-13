@@ -17,3 +17,11 @@ Content-Type: application/json
 }
 ###
 GET http://localhost:3000/api/users/me
+
+### 
+POST http://localhost:3000/api/users/verifyemail?token=abcdefgh
+Content-Type: application/json
+
+{
+    "token" : "ancd"
+}
